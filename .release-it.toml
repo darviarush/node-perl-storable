@@ -1,0 +1,14 @@
+increment = "minor"
+
+[git]
+changelog = "git log --pretty=format:\"- %s\" --first-parent HEAD ${latestTag}...HEAD"
+commitMessage = """
+Release ${version}.
+
+Changelog:
+
+${changelog}"""
+requireCleanWorkingDir = false
+
+[npm]
+publish = false
