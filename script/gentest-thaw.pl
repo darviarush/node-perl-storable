@@ -9,7 +9,7 @@ use JSON::XS;
 
 my $json = JSON::XS->new->canonical->allow_nonref;
 
-open my $f, ">", "__tests__/perl-storable-thaw.test.js" or die $!;
+open my $f, ">", "__tests__/thaw.test.js" or die $!;
 
 sub ascii {
     use bytes;
@@ -24,12 +24,13 @@ my $its = join "\n\n", map {
     my $data = $_->[1];
     my $freeze = freeze ref $data? $data: \$data;
     my $array = ascii($freeze);
-    my $equal = $_->[2] // $json->encode($data);
+    my $expect = $_->[3] // "expect(thaw(data)).toEqual(".($_->[2] // $json->encode($data)).");";
+
     print "$name\t$freeze\n\n";
 << "END_IT"
     it('$name', () => {
         let data = Buffer.from([$array]);
-        expect(thaw(data)).toEqual($equal);
+        $expect
     });
 END_IT
 }
@@ -58,8 +59,18 @@ END_IT
         push @$x, $x;
         $x
     }, "(() => { let x=[123, -1.23, null, '123', '1'.repeat(1000), [5], {x: 6}, 'Привет!']; x.push(x); return x })()"],
-    ["Объект", bless({x=>6}, "A"), "(() => { class A { constructor() { this.x=6 } }; return new A() })()"],
-    ["Объект-массив", bless([5, "abc"], "A"), "(() => { class A { constructor() { this[0]=5; this[1]='abc' } }; return new A() })()"],
+    ["Объект", bless({x=>6}, "A"), undef, "
+        class A { getX() { return this.x } };
+        let a = thaw(data, {A});
+        expect(a.getX()).toEqual(6);
+        expect(a).toBeInstanceOf(A);
+    "],
+    ["Объект-массив", bless([5, "abc"], "A"), undef, "
+        class A extends Array {};
+        let a = thaw(data, {A});
+        expect(a.length).toEqual(2);
+        expect(a).toBeInstanceOf(A);
+    "],
     ;
 
 
@@ -69,9 +80,9 @@ print $f +<< "END";
  *   Тест сгенерирован утилитой $0.
  *   Ничего не менять: перетрётся.
  */
-const thaw = require("../lib/perl-storable-thaw");
+const thaw = require("..").thaw;
 
-describe('perl-storable-thaw', () => {
+describe('node-perl-storable#thaw', () => {
 
 $its
 

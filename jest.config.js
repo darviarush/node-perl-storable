@@ -12,7 +12,7 @@ module.exports = {
   'collectCoverageFrom': [
       '**',
   ],
-  'coverageDirectory': '/tmp/perl-storable/coverage',
+  'coverageDirectory': '/tmp/node-perl-storable/coverage',
   'coverageThreshold': {
     'global': {
       'statements': 0,

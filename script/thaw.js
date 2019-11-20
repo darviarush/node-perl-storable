@@ -1,7 +1,4 @@
-# node-perl-storable
-A packer-unpacker for format from perl world: https://metacpan.org/pod/Storable
-
-```js
+#!/usr/bin/env node
 
 class A {
     constructor() {
@@ -17,10 +14,7 @@ let exec = require('child_process').execSync;
 
 let stdout = exec("perl -MStorable -e 'print Storable::freeze(bless {x=>123}, A)'");
 
-let a = require("node-perl-storable").thaw(stdout, {A});
+let a = require("..").thaw(stdout, {A});
 
 console.log(a instanceof A, a.getX()); // --> true, 123
-
-```
-
 

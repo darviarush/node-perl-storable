@@ -1,29 +1,30 @@
 {
-  "name": "perl-storable",
-  "version": "0.0.0",
-  "description": "perl-storable",
+  "name": "node-perl-storable",
+  "version": "0.0.1",
+  "description": "A packer-unpacker for format from perl world: https://metacpan.org/pod/Storable",
   "main": "index.js",
-  "bin": {
-  },
+  "bin": {},
   "scripts": {
     "lint": "eslint --ext .js,.vue --ignore-path .eslintignore .",
     "test": "jest",
     "doc": "documentation build 'lib/**' index.js -f html -o docs",
-    "cover": "xdg-open /tmp/perl-storable/coverage/lcov-report/index.html &"
+    "cover": "xdg-open /tmp/node-perl-storable/coverage/lcov-report/index.html &",
+    "thaw": "node script/thaw.js"
   },
   "repository": {
     "type": "git",
-    "url": "git@git.220v.ru:220V/perl-storable.git"
+    "url": "git@github.com:darviarush/node-perl-storable.git"
   },
   "keywords": [
-    "perl-storable"
+    "perl",
+    "storable",
+    "thaw",
+    "freeze"
   ],
   "author": "Yaroslav O. Kosmina",
-  "license": "BSD 2-Clause License",
-  "dependencies": {
-  },
+  "license": "BSD-2-Clause",
+  "dependencies": {},
   "devDependencies": {
-    "colors": "^1.4.0",
     "documentation": "^12.1.3",
     "eslint": "^6.5.1",
     "eslint-plugin-jest": "^22.20.0",
