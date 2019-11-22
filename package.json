@@ -1,13 +1,13 @@
 {
   "name": "node-perl-storable",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A packer-unpacker for format from perl world: https://metacpan.org/pod/Storable",
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ext .js,.vue --ignore-path .eslintignore .",
     "test": "jest",
     "doc": "documentation build 'lib/**' index.js -f html -o docs",
-    "cover": "xdg-open /tmp/node-perl-storable/coverage/lcov-report/index.html &",
+    "cover": "xdg-open /tmp/node-perl-storable/coverage/lcov-report/index.html",
     "thaw": "node script/thaw.js"
   },
   "bin": {},
